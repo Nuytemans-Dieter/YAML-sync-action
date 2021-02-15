@@ -21,8 +21,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      LANG_PATH: ${{github.event.inputs.lang_path}}
-      DEFAULTS: ${{github.event.inputs.default}}
+      LANG_PATH: ${INPUT_LANG_PATH}
+      DEFAULTS: ${INPUT_DEFAULT_FILE}
     steps:
       - uses: actions/checkout@v2
         with:
