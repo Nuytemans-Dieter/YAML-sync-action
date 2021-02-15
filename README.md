@@ -16,8 +16,9 @@ jobs:
       LANG_PATH: foldertest
     steps:
       - name: Yaml autosync
-        uses: Nuytemans-Dieter/YAML-sync-action@1.0.1
+        uses: Nuytemans-Dieter/YAML-sync-action@1.0.4
         with:
+          github_token: ${secrets.GITHUB_TOKEN}
           lang_path: foldertest/
           default_file: en.yml
 ````
@@ -41,6 +42,7 @@ An example action step can be found below:
 - name: Yaml autosync
   uses: Nuytemans-Dieter/YAML-sync-action@1.0.1
   with:
+    github_token: ${secrets.GITHUB_TOKEN}
     lang_path: /example/path/to/folder
     default_file: default_file.yml
 ````
@@ -87,6 +89,7 @@ Our action setup would look like this:
 - name: Yaml autosync
   uses: Nuytemans-Dieter/YAML-sync-action@1.0.1
   with:
+    github_token: ${secrets.GITHUB_TOKEN}
     lang_path: /resources/lang/
     default_file: en-us.yml
 ````
