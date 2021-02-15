@@ -3,6 +3,25 @@ This GitHub Action uses a template YAML file to sync changes to all other files.
 It allows having multiple (language) config files and makes you only have to change one file in order to propagate these changes to the other files.
 It is possible to add/remove config options or comments. When using this action, you only have to edit `template.yml` and commit the changes, this action will edit all other files accordingly. When adding new options, it is required to add this option to the default config file as well so that missing options in the other files can revert to the default. 
 
+A workflow could potentioally look like this:
+````
+name: GitHub Actions
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      LANG_PATH: foldertest
+    steps:
+      - name: Yaml autosync
+        uses: Nuytemans-Dieter/YAML-sync-action@1.0.1
+        with:
+          lang_path: foldertest/
+          default_file: en.yml
+````
+
 The repository must follow a few rules which have to be met:
 - Restrictions
   - Any file to be synced may only contain String values
