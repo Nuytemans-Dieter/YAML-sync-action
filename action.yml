@@ -21,11 +21,20 @@ inputs:
 on: [push]
 
 runs:
-  env:
-    LANG_PATH: ${INPUT_LANG_PATH}
-    DEFAULTS: ${INPUT_DEFAULT_FILE}
   using: "composite"
   steps:
+    - run: echo Hello ${INPUT_LANG_PATH}
+      shell: bash
+    - id: random-number-generator
+      run: echo "::set-output name=random-id::$(echo $RANDOM)"
+      shell: bash
+
+# runs:
+#   env:
+#     LANG_PATH: ${INPUT_LANG_PATH}
+#     DEFAULTS: ${INPUT_DEFAULT_FILE}
+#   using: "composite"
+#   steps:
 #     - uses: actions/checkout@v2
 #       with:
 #         persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
@@ -34,39 +43,39 @@ runs:
 #       uses: actions/setup-java@v1
 #       with:
 #         java-version: 1.8
-    - name: Clone YAML-localisation-sync
-      run: git clone https://github.com/Nuytemans-Dieter/YAML-localisation-sync.git
-      shell: sh
-    - name: Building the project
-      run: |
-        cd YAML-localisation-sync
-        mvn package
-      shell: sh
-    - name: Moving JAR file
-      run: cp YAML-localisation-sync/target/YamlLocalisation.jar ${LANG_PATH}
-      shell: sh
-    - name: Running JAR file
-      run: |
-        cd ${LANG_PATH}
-        java -jar YamlLocalisation.jar ${DEFAULTS}
-      shell: sh
-    - name: Repo cleanup
-      run: |
-        rm -rf YAML-localisation-sync
-        cd ${LANG_PATH}
-        rm YamlLocalisation.jar
-      shell: sh
-    - name: Commit changes
-      run: |
-        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "YAML sync bot"
-        git add .
-        git commit -m "Sync YAML localisation files"
-        git fetch
-      shell: sh
-      continue-on-error: true
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${INPUT_GITHUB_TOKEN}
-        force: true
+#     - name: Clone YAML-localisation-sync
+#       run: git clone https://github.com/Nuytemans-Dieter/YAML-localisation-sync.git
+#       shell: sh
+#     - name: Building the project
+#       run: |
+#         cd YAML-localisation-sync
+#         mvn package
+#       shell: sh
+#     - name: Moving JAR file
+#       run: cp YAML-localisation-sync/target/YamlLocalisation.jar ${LANG_PATH}
+#       shell: sh
+#     - name: Running JAR file
+#       run: |
+#         cd ${LANG_PATH}
+#         java -jar YamlLocalisation.jar ${DEFAULTS}
+#       shell: sh
+#     - name: Repo cleanup
+#       run: |
+#         rm -rf YAML-localisation-sync
+#         cd ${LANG_PATH}
+#         rm YamlLocalisation.jar
+#       shell: sh
+#     - name: Commit changes
+#       run: |
+#         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+#         git config --local user.name "YAML sync bot"
+#         git add .
+#         git commit -m "Sync YAML localisation files"
+#         git fetch
+#       shell: sh
+#       continue-on-error: true
+#     - name: Push changes
+#       uses: ad-m/github-push-action@master
+#       with:
+#         github_token: ${INPUT_GITHUB_TOKEN}
+#         force: true
