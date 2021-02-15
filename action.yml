@@ -21,10 +21,10 @@ inputs:
 on: [push]
 
 runs:
-  runs-on: ubuntu-latest
   env:
     LANG_PATH: ${INPUT_LANG_PATH}
     DEFAULTS: ${INPUT_DEFAULT_FILE}
+  using: "composite"
   steps:
     - uses: actions/checkout@v2
       with:
