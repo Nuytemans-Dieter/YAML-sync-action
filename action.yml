@@ -34,42 +34,37 @@ runs:
 #       uses: actions/setup-java@v1
 #       with:
 #         java-version: 1.8
-    - run: echo Hello ${{ inputs.who-to-greet }}.
-      shell: bash
-    - id: random-number-generator
-      run: echo "::set-output name=random-id::$(echo $RANDOM)"
-      shell: bash
 #     - name: Clone YAML-localisation-sync
-#       run: git clone https://github.com/Nuytemans-Dieter/YAML-localisation-sync.git
-#       shell: sh
+    - run: git clone https://github.com/Nuytemans-Dieter/YAML-localisation-sync.git
+      shell: bash
 #     - name: Building the project
-#       run: |
-#         cd YAML-localisation-sync
-#         mvn package
-#       shell: sh
+    - run: |
+        cd YAML-localisation-sync
+        mvn package
+      shell: bash
 #     - name: Moving JAR file
-#       run: cp YAML-localisation-sync/target/YamlLocalisation.jar ${LANG_PATH}
-#       shell: sh
+    - run: cp YAML-localisation-sync/target/YamlLocalisation.jar ${LANG_PATH}
+      shell: bash
 #     - name: Running JAR file
-#       run: |
-#         cd ${LANG_PATH}
-#         java -jar YamlLocalisation.jar ${DEFAULTS}
-#       shell: sh
+    - run: |
+        cd ${LANG_PATH}
+        java -jar YamlLocalisation.jar ${DEFAULTS}
+      shell: bash
 #     - name: Repo cleanup
-#       run: |
-#         rm -rf YAML-localisation-sync
-#         cd ${LANG_PATH}
-#         rm YamlLocalisation.jar
-#       shell: sh
+    - run: |
+        rm -rf YAML-localisation-sync
+        cd ${LANG_PATH}
+        rm YamlLocalisation.jar
+      shell: bash
 #     - name: Commit changes
-#       run: |
-#         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-#         git config --local user.name "YAML sync bot"
-#         git add .
-#         git commit -m "Sync YAML localisation files"
-#         git fetch
-#       shell: sh
-#       continue-on-error: true
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "YAML sync bot"
+        git add .
+        git commit -m "Sync YAML localisation files"
+        git fetch
+      shell: bash
+      continue-on-error: true
 #     - name: Push changes
 #       uses: ad-m/github-push-action@master
 #       with:
