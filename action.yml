@@ -14,6 +14,9 @@ inputs:
     description: 'The name of the YAML file that contains all default options. These values are used to fill in any missing info in the other files.'
     default: 'default.yml'
     required: false
+  github_token:
+    description: 'The secret GitHub Token so this action has push access. Make sure to use GitHub secrets and do not push any private info!'
+    required: true
 
 on: [push]
 
@@ -60,5 +63,5 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${INPUT_GITHUB_TOKEN}
           force: true
