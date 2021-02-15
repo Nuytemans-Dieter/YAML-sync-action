@@ -1,4 +1,9 @@
 name: Yaml autosync
+description: Auto-sync changes to a template YAML localisation file to all other YAML files in the same directory.
+author: Nuytemans-Dieter
+branding:
+  icon: file-text
+  color: blue
 
 on: [push]
 
@@ -7,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       LANG_PATH: .
+      DEFAULTS: default_file.yml
     steps:
       - uses: actions/checkout@v2
         with:
@@ -27,7 +33,7 @@ jobs:
       - name: Running JAR file
         run: |
           cd ${LANG_PATH}
-          java -jar YamlLocalisation.jar en.yml
+          java -jar YamlLocalisation.jar ${DEFAULTS}
       - name: Repo cleanup
         run: |
           rm -rf YAML-localisation-sync
