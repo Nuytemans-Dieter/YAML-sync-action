@@ -36,6 +36,8 @@ runs:
 #         java-version: 1.8
     - run: echo Hello ${INPUT_LANG_PATH}
       shell: bash
+    - run: echo Hello ${INPUT_LANG_PATH}
+      shell: bash
 #     - name: Clone YAML-localisation-sync
 #       run: git clone https://github.com/Nuytemans-Dieter/YAML-localisation-sync.git
 #       shell: sh
